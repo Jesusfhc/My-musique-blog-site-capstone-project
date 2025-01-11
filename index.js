@@ -8,11 +8,42 @@ const port = 3000;
 
 const __dirnname = dirname(fileURLToPath(import.meta.url));
 
+class Post {
+    constructor(id, title, author, date, content) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.date = date;
+        this.content = content;
+    }
+}
+
+
+let posts = [];
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
     res.render("index.ejs");
+})
+
+app.post("/", (req, res) => {
+
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido);
+
+
+    let newPost = new Post(
+        posts.length + 1,
+        req.body.title,
+        req.body.author,
+        hoy.toDateString(),
+        req.body.content
+    )
+    posts.push(newPost);
+
+    res.render("index.ejs", {publicaciones: posts});
 })
 
 app.post("/create_post", (req, res) => {
