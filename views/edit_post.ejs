@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<%-include("partials/header.ejs") %>
+
+
+<main class="form-signin w-50 m-auto">
+    <form action="/" method="post" class="creation-form">
+      <img class="mb-4" src="images/music-note.png" alt="" width="92" height="77">
+      <h1 class="h3 mb-3 fw-normal">Edit your music post</h1>
+  
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" placeholder="The best of The Beatles it's yet to come!" name="title">
+        <label for="floatingInput">Your post Title</label>
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingPassword" placeholder="John Doe" name="author">
+        <label for="floatingInput">Your name</label>
+      </div>
+      <div class="form-floating">
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="text-area-title">Your post content</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
+        </div>
+      </div>
+  
+      
+      <button class="btn btn-outline-secondary w-100 py-2" type="submit">Edit Post</button>
+      
+    </form>
+  </main>
+
+
+<%-include("partials/footer.ejs") %>

@@ -18,6 +18,10 @@ class Post {
     }
 }
 
+function deletePost(id) {
+    posts.splice(id , 1);
+}
+
 
 let posts = [];
 
@@ -46,9 +50,21 @@ app.post("/", (req, res) => {
     res.render("index.ejs", {publicaciones: posts});
 })
 
+app.put("/edit_post", (req, res) => {
+    let id = req.body.id;
+    res.render("edit_post.ejs", {post: posts[id]});
+})
+
+app.delete("/", (req, res) => {
+    deletePost(req.body.id);
+    res.render("index.ejs", {publicaciones: posts});
+})
+
 app.post("/create_post", (req, res) => {
     res.render("create_post.ejs");
 })
+
+
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)
