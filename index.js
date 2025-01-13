@@ -22,10 +22,24 @@ function deletePost(id) {
     posts.splice(id , 1);
 }
 
+function updatePost(req) {
+
+    const tiempoTranscurrido = Date.now();
+    const hoy = new Date(tiempoTranscurrido);
+
+    let post = posts[req.body.id - 1];
+    post.title = req.body.title;
+    post.author = req.body.author;
+    post.date = hoy.toDateString();
+    post.content = req.body.content;
+    
+}
+
 
 let posts = [];
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -50,10 +64,16 @@ app.post("/", (req, res) => {
     res.render("index.ejs", {publicaciones: posts});
 })
 
-app.put("/edit_post", (req, res) => {
-    let id = req.body.id;
-    res.render("edit_post.ejs", {post: posts[id]});
+app.post("/edit_post", (req, res) => {
+    console.log(req.body); 
+    res.render("edit_post.ejs", {post: posts[req.body.id - 1]});
 })
+
+app.post("/update_post", (req, res) => {
+    updatePost(req);
+    res.render("index.ejs", {publicaciones: posts});
+})
+
 
 app.delete("/", (req, res) => {
     deletePost(req.body.id);
